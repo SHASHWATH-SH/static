@@ -3,63 +3,31 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main # Trigger this pipeline for pushes to the main branch
+      - main
   pull_request:
     branches:
-      - main # Trigger this pipeline for pull requests targeting the main branch
+      - main
 
 jobs:
-  # Build job to install dependencies, test, and build the React app
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
-        
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16' # Set Node.js version to match your project setup
-        
+          node-version: '16'
+
       - name: Install dependencies
-        run: |
-          npm install
-          
-      - name: Run tests (Optional)
-        run: |
-          npm test -- --ci --reporters=default
+        run: npm install
 
-      - name: Build React app
-        run: |
-          npm run build
-          
-      - name: Deploy to GitHub Pages (Optional)
-        run: |
-          npx gh-pages -d build -u "https://${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+      - name: Build the project
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        run: npx gh-pages -d build
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }} # Make sure GH_TOKEN is set in GitHub Secrets
-
-  # Docker build and push job to build a Docker image
-  docker:
-    runs-on: ubuntu-latest
-    needs: build # This job will run after the build job is completed
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Log in to DockerHub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Set up Docker build
-        run: |
-          docker build -t shashwathsh/static-site .
-
-      - name: Push Docker image
-        run: |
-          docker tag shashwathsh/static-site:latest shashwathsh/static-site:${{ github.sha }}
-          docker push shashwathsh/static-site:${{ github.sha }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
