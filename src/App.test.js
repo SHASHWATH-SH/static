@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders static-site link', () => {
+test('renders welcome text', () => {
   render(<App />);
-  const linkElement = screen.getByText(/static-site/i);
-  expect(linkElement).toBeInTheDocument();
+  const textElement = screen.getByText(/welcome to the static site/i);
+  expect(textElement).toBeInTheDocument();
 });
