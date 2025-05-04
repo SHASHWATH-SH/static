@@ -57,9 +57,9 @@ jobs:
 
       - name: Set up Docker build
         run: |
-          docker build -t your-dockerhub-username/static-site .
+          docker build -t shashwathsh/static-site .
 
       - name: Push Docker image
         run: |
-          docker tag your-dockerhub-username/static-site:latest your-dockerhub-username/static-site:${{ github.sha }}
-          docker push your-dockerhub-username/static-site:${{ github.sha }}
+          docker tag shashwathsh/static-site:latest shashwathsh/static-site:${{ github.sha }}
+          docker push shashwathsh/static-site:${{ github.sha }}
