@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders welcome message', () => {
+test('this test should fail', () => {
   render(<App />);
-  const headerElement = screen.getByText(/welcome to the static site/i);
-  expect(headerElement).toBeInTheDocument();
+  const nonExistingElement = screen.getByText(/this text does not exist/i);
+  expect(nonExistingElement).toBeInTheDocument();
 });
