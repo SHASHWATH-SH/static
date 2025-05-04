@@ -1,4 +1,4 @@
-name: Build & Push Docker Image
+name: Build, Test & Push Docker Image
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-push:
+  build-test-and-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,6 +20,9 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Run Tests
+        run: npm test -- --watchAll=false
 
       - name: Build React App
         run: npm run build
