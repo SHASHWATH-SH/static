@@ -11,13 +11,14 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --ci --reporters=default",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
-    "gh-pages": "^6.1.0",
+    "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^14.0.0",
-    "@testing-library/jest-dom": "^6.0.0"
+    "gh-pages": "^6.3.0"
   },
   "browserslist": {
     "production": [
